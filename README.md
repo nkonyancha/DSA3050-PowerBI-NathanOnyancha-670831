@@ -5,7 +5,7 @@
 The dataset used in this project is the **New York City Airbnb Open Data** dataset. It was originally collected from Airbnb listings in New York City and is publicly available through Kaggle.
 
 - **Dataset:** New York City Airbnb Open Data
-- **Source:** Kaggle
+- **Source:** Kaggle: https://www.kaggle.com/datasets/dgomonov/new-york-city-airbnb-open-data
 - **Original platform:** Airbnb
 
 The dataset contains information about Airbnb listings, hosts, locations, prices, reviews, availability, and other characteristics of properties listed in New York City.
