@@ -146,10 +146,106 @@ The data model follows a **Star schema** structure.
 
 ## Section D: DAX and Business Calculations
 
-### Total Listings
+### 1. Total Listings
 ```dax
 total_listings = COUNTROWS(Full_details)
 ```
-Counts the total number of Airbnb listings. This is useful for KPI card creation. Used in BnB performance...
+This counts the total number of Airbnb listings. This is useful for KPI card creation. Used in Page 1 as a KPI measure.
 
-*(Section D was cut off in the original notes — add further DAX measures here as they're finalised.)*
+### 2. Average Price
+```dax
+average_price = AVERAGE(Full_details[price])
+```
+This gets the average price for the Airbnb. This is useful for KPI card creation and showing how average price changes with time, location, or room type. Used as a KPI measure in Page 1.
+
+### 3. Neighbourhood Price Rank
+```dax
+Neighborhood_Price_Rank = RANKX(ALL(Full_details[neighbourhood_group]), [average_price], , DESC, DENSE)
+```
+This ranks the neighbourhoods according to the average price of an Airbnb in that area. This is useful for visualisation where I want to show how price differs in each neighbourhood. Used in the Map visualisation in the Airbnb Market Analysis page to show the ranks of each location.
+
+### 4. Total Hosts
+```dax
+total_available = SUM(Full_details[availability_365])
+```
+Used to display the total number of hosts.
+Used in display Cards in the host perfomance page
+
+---
+
+
+
+## Section E: Power BI Dashboards
+
+### Dashboard 1: Overall Airbnb Performance
+
+**Purpose**
+
+This dashboard provides a high-level overview of the Airbnb market. It focuses on the overall size, pricing, availability, and earnings of the listings in the dataset.
+
+**Main questions it answers**
+- How many Airbnb listings are available in the dataset?
+- What is the average price of an Airbnb listing?
+- What is the average earnings level across hosts?
+- How are listings distributed across different room types and neighbourhoods?
+- How does Airbnb performance change over time where time-based data is available?
+
+**Main visuals**
+- KPI cards for total listings, total hosts, average price, average earnings, and availability
+- Listings by room type
+- Listings by neighbourhood/neighbourhood group
+- Price-related visualisations
+- Date-based trend
+
+![Overall Airbnb Performance Dashboard](screenshots/Dashboard_overview.png)
+
+### Dashboard 2: Listing & Market Analysis
+
+**Purpose**
+
+This dashboard goes deeper into the characteristics of individual Airbnb listings. It focuses on price, room type, location, availability, and reviews.
+
+**Main questions it answers**
+- How does the average price differ between room types?
+- Which neighbourhoods have the highest and lowest average listing prices?
+- Which room types are most common in the Airbnb market?
+- How does listing availability differ across room types and locations?
+- Is there a relationship between listing price and the number of reviews received?
+- How do minimum-night requirements vary between different types of listings?
+- Which neighbourhoods offer a larger selection of listings?
+
+**Main visuals**
+- Average price by room type
+- Average price by neighbourhood
+- Listings by room type
+- Availability by room type/location
+- Price vs reviews
+- Neighbourhood price ranking
+
+![Listing and Market Analysis Dashboard](screenshots/Dashboard_market_analysis.png)
+
+### Dashboard 3: Host Performance
+
+**Purpose**
+
+This dashboard focuses on host-level performance, rather than individual listings. It identifies high-performing hosts and examines the characteristics of their Airbnb portfolios.
+
+**Main questions it answers**
+- Which hosts generate the highest total earnings?
+- What percentage of overall host earnings comes from the highest-performing hosts?
+- How does average earnings differ between hosts?
+- How does earnings compare with the number of listings managed by a host?
+- Which hosts rank highest based on total earnings?
+- What room types are offered by the highest-earning hosts?
+- Where are the listings managed by the highest-earning hosts located?
+- Do hosts with more listings necessarily have higher earnings?
+
+**Main visuals**
+- Total earnings card
+- Average earnings card
+- Top 10 hosts by earnings treemap
+- Room types offered by top-performing hosts
+- Locations/neighbourhoods of top-performing hosts
+- Listings vs earnings comparison
+
+![Host Performance Dashboard](screenshots/Dashboard_deeper_insights.png)
